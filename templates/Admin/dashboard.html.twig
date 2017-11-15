@@ -14,8 +14,8 @@
         {% for user in users %}
         <li>
             <strong><a href={{ path("app_usercontroller_profileaction",{'id': user.id }) }}>{{ user.firstname }} {{ user.lastname }} - {{ user.email }}</a></strong>
-            <strong><a href="/profile/{{ user.id }}">{{ user.firstname }} {{ user.lastname }} - {{ user.email }}</a></strong>
-            <a href="/admin/delete-user/{{ user.id }}">delete</a>
+
+            <a href={{ path("app_adminctroller_deleteuseraction",{'id': user.id }) }}>delete</a>
         </li>
         {% endfor %}
     </ul>

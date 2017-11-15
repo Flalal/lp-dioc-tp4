@@ -27,9 +27,17 @@ class AdminController extends Controller
         return $this->render('Admin/dashboard.html.twig', ['users' => $users]);
     }
 
+
+    /**
+     *  @Route("/delete-user/{id}", name="app_adminctroller_deleteuseraction")
+     */
     public function deleteUserAction(User $user)
     {
         // FIXME: Supprime l'utilisateur est redirige sur /admin, la route doit être /delete-user/1
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+        return $this->redirect($this->generateUrl("admin_dashboard"));
 
     }
 }
