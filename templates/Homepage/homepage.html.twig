@@ -14,9 +14,12 @@
      #}
 
     <ul>
+
+        {% for user in users %}
             <li>
-                <strong><a href="/profile/1">John Doe - user@exemple.com</a></strong>
-                <a href="/profile/2">Foo Bar - foo@exemple.com</a>
+                <strong><a href="/profile/{{ user.id }}">{{ user.firstname }} {{ user.lastname }} - {{ user.email }}</a></strong>
             </li>
+            <br>
+        {% endfor %}
     </ul>
 {% endblock %}

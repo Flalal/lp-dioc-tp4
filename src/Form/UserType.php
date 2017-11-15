@@ -26,5 +26,6 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         // FIXME: ajouter la configuration du form
+        $resolver->setDefault(['data_class' => User::class,]);
     }
 }
