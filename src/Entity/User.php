@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity
  */
-class User implements UserInterface, \Serializable
+class User
 {
     /**
      * @ORM\Id
@@ -18,192 +18,88 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column()
      */
-    private $email;
+    private $name;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      */
-    private $firstname;
+    private $healthPoint=100;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="Weapon")
      */
-    private $lastname;
+    private $currentWeapon;
 
     /**
-     * @ORM\Column(type="date")
+     * User constructor.
+     * @param $name
+     * @param int $healthPoint
+     * @param $currentWeapon
      */
-    private $birthday;
+
 
     /**
-     * @ORM\Column(type="string")
+     * @return mixed
      */
-    private $password;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updatedAt;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isAdmin = false;
-
-    public function __construct()
-    {
-        $this->createdAt = $this->updatedAt = new \DateTime();
-    }
-
-    public function getId() : ?int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getEmail() : ?string
-    {
-        return $this->email;
-    }
 
-    public function setEmail(?string $email) : void
+    /**
+     * @return mixed
+     */
+    public function getName()
     {
-        $this->email = $email;
-    }
-
-    public function getFirstname() : ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(?string $firstname) : void
-    {
-        $this->firstname = $firstname;
-    }
-
-    public function getLastname() : ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(?string $lastname) : void
-    {
-        $this->lastname = $lastname;
-    }
-
-    public function getBirthday() : ?\DateTime
-    {
-        return $this->birthday;
-    }
-
-    public function setBirthday(\DateTime $birthday) : void
-    {
-        $this->birthday = $birthday;
-    }
-
-    public function getPassword() : ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(?string $password) : void
-    {
-        $this->password = $password;
-    }
-
-    public function getCreatedAt() : \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt() : \DateTime
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTime $updatedAt) : void
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    public function isAdmin() : bool
-    {
-        return $this->isAdmin;
-    }
-
-    public function setIsAdmin(bool $isAdmin) : void
-    {
-        $this->isAdmin = $isAdmin;
+        return $this->name;
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $name
      */
-    public function getRoles()
+    public function setName($name)
     {
-        $roles = ['ROLE_USER'];
-
-        if ($this->isAdmin()) {
-            $roles[] = 'ROLE_ADMIN';
-        }
-
-        return $roles;
+        $this->name = $name;
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed
      */
-    public function getSalt()
+    public function getHealthPoint()
     {
+        return $this->healthPoint;
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $healthPoint
      */
-    public function getUsername()
+    public function setHealthPoint($healthPoint)
     {
-        return $this->email;
+        $this->healthPoint = $healthPoint;
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed
      */
-    public function eraseCredentials()
+    public function getCurrentWeapon()
     {
+        return $this->currentWeapon;
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $currentWeapon
      */
-    public function serialize()
+    public function setCurrentWeapon($currentWeapon)
     {
-        return serialize([
-            $this->id,
-            $this->email,
-            $this->firstname,
-            $this->lastname,
-            $this->isAdmin,
-            $this->password,
-        ]);
+        $this->currentWeapon = $currentWeapon;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function unserialize($serialized)
-    {
-        list(
-            $this->id,
-            $this->email,
-            $this->firstname,
-            $this->lastname,
-            $this->isAdmin,
-            $this->password) = unserialize($serialized);
-    }
+
+
+
+
+
 }

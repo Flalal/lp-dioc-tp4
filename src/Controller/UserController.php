@@ -6,31 +6,19 @@ use App\Entity\User;
 use App\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
     /**
-     * // FIXME: la route doit être /my_profile
-     * @Route("/my_profile", name="app_usercontroller_myprofile")
+     * @Route(path="/", name="app_user_index")
      */
-    public function myProfileAction()
+    public function indexAction()
     {
-        return $this->render('User/my_profile.html.twig');
-    }
+        $players = $this->getDoctrine()->getRepository(User::class)->findAll();
 
-    /**
-     * // FIXME: la route doit être /profile/3 par exemple.
-     *  @Route("/profile/{id}", name="app_usercontroller_profileaction")
-     */
-    public function profileAction(User $user)
-    {
-        // FIXME: un utilisateur connecté qui se rend sur sa propre page est redirigé vers /my_profile
-        if($user === $this->getUser()){
-            return $this->redirect($this->generateUrl("app_usercontroller_myprofile"));
-        }
-        return $this->render('User/profile.html.twig', ['user' => $user]);
+        return $this->render('User/index.html.twig', ['players' => $players]);
     }
-
 
 }
