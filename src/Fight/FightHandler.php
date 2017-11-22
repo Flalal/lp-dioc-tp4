@@ -19,7 +19,7 @@ class FightHandler
      */
     public function __construct(DamageCalculator $damageCalculator)
     {
-        $this->damageCalculator = new DamageCalculator();
+        $this->damageCalculator = $damageCalculator;
     }
 
     public function FightHandle(Fight $fight){
